@@ -4,6 +4,7 @@ Reinforcement learning is one of the machine learning methods in which the agent
 Bellman's equation is one of the main reinforcement learning equations used to optimize the agent's performance in the environment. This equation is as follows:
 
 Q(s.a) = Q(s.a) + α[r + γ max(Q(s^'.a')) - Q(s.a)]
+
 In this equation, 𝑄(𝑠.𝑎) represents the value of action 𝑎 in state 𝑠 𝛼 is the learning rate that determines how much feedback at each stage should be applied to the agent's performance 𝑟 is the reward or punishment received by the agent γ is the parameter Forgetting is what determines the effect of the discount in the future. 𝑚𝑎𝑥(𝑄(𝑠′.𝑎′)) is the value of the better action in the next state 𝑠′. By using this equation, the agent can improve its performance in the environment to achieve its goal.
 In reinforcement learning, the neural network is used as an approximation of the action value function (Q). By receiving inputs from the environment and actions of the agent, the neural network calculates the action value for each situation and action. Then, using the Bellman equation, the network parameters are updated in such a way that the optimal action value is obtained for each state and action.
 In this process, the neural network with more experience finds the ability to predict the value of a better action, and the agent performs better in the environment using this ability.
