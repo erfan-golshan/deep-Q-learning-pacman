@@ -14,22 +14,36 @@ Now, with these positive and negative scores, the bot's neural network learns th
 On the other hand, we have two types of positive points, a main positive point and a secondary positive point, such that their learning coefficients are different; The main score has a higher coefficient, so it has a greater effect on learning, while the non-main score has a smaller coefficient, so it has a lower effect on learning.
 In the whole step by step, all these scores are added together and the learning process is completed with the help of the Bellman equation.
 In this section, we are going to see how to use the neural network and the Torch library together, and also find the right parameters for the algorithm.
+
 ![image](https://github.com/erfan-golshan/deep-Q-learning-pacman/assets/129675348/803182b2-2fad-4c2a-b0f0-a75024c83a6a)
+
 Torch library modules all work with tensor, so we write a function that converts the desired value to tensor:
+
 ![image](https://github.com/erfan-golshan/deep-Q-learning-pacman/assets/129675348/20d794e8-c822-477d-86f1-59e9939e7897)
+
 Next, we will write a function that will display the playground for us:
+
 ![image](https://github.com/erfan-golshan/deep-Q-learning-pacman/assets/129675348/9e512e0e-e13f-4d43-a1b1-397f74f20833)
+
 Then we define the playing field for it:
+
 ![image](https://github.com/erfan-golshan/deep-Q-learning-pacman/assets/129675348/2650fcd4-e7e9-4f3c-b753-d62805815459)
+
 The playing field will be like this:
 Here, black places are walls and white places are empty. Also yellow houses
 There are coins that Pac-Man must eat to get points.
+
 ![image](https://github.com/erfan-golshan/deep-Q-learning-pacman/assets/129675348/f2acaa8d-dda3-482d-9bcc-47235e542af7)
+
 Now we create the neural network model and call it model:
 Visually, our neural network looks like this:
+
 ![image](https://github.com/erfan-golshan/deep-Q-learning-pacman/assets/129675348/15842bc9-f8d8-4656-a1d3-fad531827f73)
+
 The criterion function specifies how to calculate the error for us. In this neural network, the Mean Square Error model or MSE for short is used. We intend to use this function to calculate the following value in the DQN algorithm:
+
 ![image](https://github.com/erfan-golshan/deep-Q-learning-pacman/assets/129675348/ff4165e6-2b00-4753-8c02-82f4358a160f)
+
 Since we are dealing with random movements (Pac-Man's next move is random from the bot's point of view), we need to use an optimization method based on random data. Among the various methods, SGD or Stochastic Gradient Descent method has been used, which reduces the amount of gradient (changes in the components of each neuron) to obtain the optimal value.
 This SGD function takes the parameters of the neural network model and performs optimization with a learning rate and momentum. The learning rate, or lr for short, determines the value that the optimizer function needs to move towards the values ​​with a negative gradient so that the loss value is the least. Momentum value is a coefficient between 1 and 0 that is multiplied in the previous state and enters the next state. This value is usually 0.9
 Now we specify the input and output values ​​of the neural network:
@@ -37,16 +51,24 @@ Inputs: current coordinates of the robot including x and y
 Outputs: new coordinates of the robot including x and y and the value of loss or reward at this stage
 The amount of loss or failure: the distance to Pac-Man and the amount of coins that Pac-Man has eaten since the beginning.
 In fact, this neural network has feedback (according to the DQN algorithm), that is, the network can be considered as follows
+
 ![image](https://github.com/erfan-golshan/deep-Q-learning-pacman/assets/129675348/005aba32-bdc6-478c-91c5-0220ed6a6641)
+
 You may ask why the number of coins eaten is also considered as an output and not dependent on our inputs, the answer is that the number of coins eaten also represents the elapsed time in some way, that is, the nervous system must He learns that the choices he makes need to be made in less time, otherwise the number of coins eaten will increase. Of course, instead of the number of coins eaten, we could directly specify the time parameter. But we have considered this case for testing here.
 What happens is that the first output of the neural network is trained for the length component of Pac-Man, and also the second component is trained for the width component of Pac-Man. But since the bot has to move only 1 house and cannot jump on the screen, we have to train the outputs of the neural network for the direction of the bot's movement.
+
 ![image](https://github.com/erfan-golshan/deep-Q-learning-pacman/assets/129675348/8bc4127a-2fea-4df3-8765-8d5b5827e01f)
+
 Now we come to the results review section:
 The red house represents Bot and the blue house is Pac-Man.
 The result is as follows
+
 ![image](https://github.com/erfan-golshan/deep-Q-learning-pacman/assets/129675348/3c2e0aa6-3aeb-4a13-9fc7-56e1190e31fe)
+
 The red diagram is Bot's location and the blue diagram is Pac-Man's location
+
 ![image](https://github.com/erfan-golshan/deep-Q-learning-pacman/assets/129675348/97c196f5-6cfa-4c70-9a4e-63c5d0bcf803)
+
 As can be seen from the diagram, the bot's location is closer to Pac-Man's location than it is able to catch him.
 The above test was performed for different values ​​of lr and momentum, the best values ​​(in terms of convergence and in terms of time) were the values ​​mentioned earlier.
 Ideas that can be used to continue the project:
